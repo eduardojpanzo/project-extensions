@@ -3,18 +3,22 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Extensão</title>
-    <link rel="stylesheet" href="./styles.css" />
-    <link rel="stylesheet" href="./switch.css" />
+    <title>Site Blocker</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 10px;
+      }
+      button {
+        padding: 10px;
+        margin-top: 10px;
+      }
+    </style>
   </head>
   <body>
-    <div>
-      <h1>Minha Extensão</h1>
-      <label class="switch">
-        <input type="checkbox" onchange="handleToggleActiveExtensions(event)" />
-        <span class="slider round"></span>
-      </label>
-    </div>
-    <script src="./popup.js"></script>
+    <h1>Site Blocker</h1>
+    <p id="status">Status: Ativado</p>
+    <button id="toggleButton">Desativar</button>
+    <script src="popup.js"></script>
   </body>
 </html>

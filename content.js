@@ -1,7 +1,17 @@
-// content.js
-
-if (window.location.protocol === "https:") {
-  console.log("A conexão é segura usando HTTPS.");
-} else {
-  console.log("A conexão não é segura. Está usando HTTP.");
-}
+chrome.storage.local.get("isActive", (data) => {
+  if (data.isActive) {
+    chrome.runtime.sendMessage(
+      { action: "checkSite", url: window.location.href },
+      (response) => {
+        if (response.isMalicious) {
+          const proceed = confirm(
+            "Este site pode ser malicioso. Deseja continuar?"
+          );
+          if (!proceed) {
+            window.location.href = "about:blank";
+          }
+        }
+      }
+    );
+  }
+});
