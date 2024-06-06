@@ -6,9 +6,10 @@
   "permissions": [
     "declarativeNetRequest",
     "declarativeNetRequestWithHostAccess",
+    "declarativeNetRequestFeedback",
     "activeTab",
     "storage",
-    "webNavigation"
+    "scripting"
   ],
   "host_permissions": ["https://*/*", "http://*/*"],
   "background": {
@@ -20,15 +21,6 @@
       "js": ["content.js"]
     }
   ],
-  "declarative_net_request": {
-    "rule_resources": [
-      {
-        "id": "ruleset_1",
-        "enabled": true,
-        "path": "rules.json"
-      }
-    ]
-  },
   "action": {
     "default_popup": "popup.html",
     "default_icon": {
@@ -41,5 +33,11 @@
     "16": "icons/icon16.png",
     "48": "icons/icon48.png",
     "128": "icons/icon128.jpeg"
-  }
+  },
+  "web_accessible_resources": [
+    {
+      "resources": ["blocked.html"],
+      "matches": ["<all_urls>"]
+    }
+  ]
 }

@@ -1,9 +1,4 @@
-const maliciousUrls = [
-  "http://malicious.com",
-  "https://malicious.com/",
-  "http://phishing.com",
-  "https://iqbroker.com/",
-]; // Lista de URLs maliciosas
+const maliciousUrls = ["malicious.com", "phishing.com", "iqbroker.com"]; // Lista de URLs maliciosas
 
 let isActive = true;
 
@@ -27,18 +22,28 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
   }
 });
 
+chrome.storage.local.get("isActive", (result) => {
+  if (result.isActive !== undefined) {
+    isActive = result.isActive;
+    updateRules();
+  }
+});
+
 function updateRules() {
   if (isActive) {
     chrome.declarativeNetRequest.updateDynamicRules(
       {
         addRules: maliciousUrls.map((item, i) => ({
           id: i + 1,
-          priority: i + 1,
+          priority: 1,
           action: {
-            type: "block",
+            type: "redirect",
+            redirect: {
+              extensionPath: "/blocked.html",
+            },
           },
           condition: {
-            urlFilter: item,
+            urlFilter: `*://${item}/*`,
             resourceTypes: ["main_frame"],
           },
         })),
